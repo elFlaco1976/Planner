@@ -1,0 +1,14 @@
+body{
+	background-color: #4E8B96;
+}
+
+.imageMenu{
+	text-align: center;
+	margin-top: 50px;
+}
+
+
+img{
+	width: 35%;
+	display: inline-block;
+}

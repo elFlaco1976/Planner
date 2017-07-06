@@ -33,7 +33,6 @@ $('#AcceptSelectionBtn').click(function(){
 
     /*$('#currentRecipes').children('li').each(function(i) { 
      
-     
      console.log ('ola');
 
      //$(this).rotate(ring.stones[i].stone_rotation);
