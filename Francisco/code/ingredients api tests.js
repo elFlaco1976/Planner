@@ -37,17 +37,17 @@ countChecked();
 $( "input[type=checkbox]" ).on( "click", countChecked );
 
 $('#AcceptSelectionBtn').click(function(){
-   document.getElementById("currentIngredients").innerHTML=" ";
+   document.getElementById("currentIngredients").innerHTML=" "; //code to erase content
       SelectedRecipe = [];
       var RecipeIds = [];
-         console.log ('Listener to select OK');
+         console.log ('Listener to select OK'); //debug
          $( "input:checked" ).each(function(i){
-           SelectedRecipe.push(($(this).attr('id')));
+           SelectedRecipe.push(($(this).attr('id'))); //identify checked buttons
          });
-         ExtractRecipeId (SelectedRecipe, RecipeIds);
-         console.log(SelectedRecipe);
+         ExtractRecipeId (SelectedRecipe, RecipeIds); //extract recipe id to show ingredients
+         console.log(SelectedRecipe); //debug
          
-         PopulateIngredFromId(RecipeIds);
+         PopulateIngredFromId(RecipeIds); // populate list
          
        })
     //clicked element, do-some-stuff
@@ -146,7 +146,7 @@ function getIngredientsFromRecipe(recipe)
 function htmlFillRawIngredientsList(rawIngredients)
 {
   //$('#currentIngredients').empty();  
-  document.getElementById("currentIngredients").innerHTML=" ";
+  //document.getElementById("currentIngredients").innerHTML=" ";
   
     for(var i in rawIngredients)
     {
