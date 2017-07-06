@@ -26,8 +26,6 @@ $(document).ready(function () {
 
     //listener for accept selection field
     $('#AcceptSelectionBtn').click(function () {
-        document.getElementById("currentIngredients").innerHTML = " "; //code to erase content
-        //$('#currentIngredients').empty();
         SelectedRecipe = [];
         var RecipeIds = [];
         //console.log('Listener to select OK'); //debug
@@ -35,8 +33,8 @@ $(document).ready(function () {
             SelectedRecipe.push(($(this).attr('id'))); //identify checked buttons
         });
         ExtractRecipeId(SelectedRecipe, RecipeIds); //extract recipe id to show ingredients
-        console.log('SelectedRecipe' + SelectedRecipe); //debug
-        console.log('RecipeIds' + RecipeIds);
+     //   console.log('SelectedRecipe' + SelectedRecipe); //debug
+     //   console.log('RecipeIds' + RecipeIds); //debug
         PopulateIngredFromId(RecipeIds); // populate list
     })
 
@@ -44,18 +42,18 @@ $(document).ready(function () {
         for (i = 0; i < (SelectedRecipe.length); ++i) {
             var RecipeId = SelectedRecipe[i].split("_")[1];
             RecipeIds.push(RecipeId);
-            console.log('RecipeIds' + RecipeIds);
+           // console.log('RecipeIds' + RecipeIds); //debug
         }
     }
 
     var SelectedRecipes = [];
     function PopulateIngredFromId(RecipeIds) {
         SelectedRecipes = [];
-        console.log('PopulateIngredFromId RecipeIds ' + RecipeIds);
+        //console.log('PopulateIngredFromId RecipeIds ' + RecipeIds); //debug
         for (i = 0; i < (RecipeIds.length); ++i) {
             SelectedRecipes.push(currentRecipes[RecipeIds[i]]);
         }
-        console.log('PopulateIngredFromId SelectedRecipes' + SelectedRecipes); //debug
+        //console.log('PopulateIngredFromId SelectedRecipes' + SelectedRecipes); //debug
         var rawIngredients = getIngredientsFromRecipes(SelectedRecipes);
 
         htmlFillRawIngredientsList(rawIngredients);
@@ -77,7 +75,7 @@ $(document).ready(function () {
 
     function onSearchResponse(data) {
         currentRecipes = data.hits;
-        console.log("Answer from fetch:" + currentRecipes);
+        //console.log("Answer from fetch:" + currentRecipes); //debug
 
         //Kind of user selection. Just select first n recipes for now
         populateRecipeList();
@@ -125,9 +123,8 @@ $(document).ready(function () {
 
     //Fills html ul list
     function htmlFillRawIngredientsList(rawIngredients) {
-        //$('#currentIngredients').empty();  
         //document.getElementById("currentIngredients").innerHTML=" ";
-
+        $('#currentIngredients').empty();
         for (var i in rawIngredients) {
             var li = document.createElement("li");
             var liContent = document.createTextNode(rawIngredients[i]);
