@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>checked demo</title>
+  <style>
+  div {
+    color: red;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+
+<form>
+  <ul id='currentRecipes'>
+    <li> booo
+    <input type="checkbox" name="newsletter" value="Hourly" id="ChooseRecipe_0"> </li>
+    <li>
+    <input type="checkbox" name="newsletter" value="Daily" id="ChooseRecipe_1"> </li>
+    <li>
+    <input type="checkbox" name="newsletter" value="Weekly" id="ChooseRecipe_2"> </li>
+    <li>
+    <input type="checkbox" name="newsletter" value="Monthly" id="ChooseRecipe_3"> </li>
+    <li>
+    <input type="checkbox" name="newsletter" value="Yearly" id="ChooseRecipe_4"></li>
+  </ul>
+  <button type="button" class="btn btn-danger" id="AcceptSelectionBtn">Select</button>
+</form>
+<div id='log'></div>
+
+<script>
+console.log("before accept listener");
+
+
+  /*  $('#currentRecipes').each(function(i) {
+     //console.log($(this).text());
+     //console.log ('each loop');
+     //var idEl = "#ChooseRecipe_"+i;
+     //$(idEl).prop( "checked" )
+
+         console.log ("index " + i);
+         console.log($('li').children('input'[0]));
+          //console.log($('input').prop('checked'));
+    //clicked element, do-some-stuff
+
+
+     //$(this).rotate(ring.stones[i].stone_rotation);
+    });
+}); */
+var SelectedRecipe = [];
+var countChecked = function() {
+  var n = $( "input:checked" ).length;
+  $( "div" ).text( n + (n === 1 ? " is" : " are") + " checked!" );
+};
+countChecked();
+
+$( "input[type=checkbox]" ).on( "click", countChecked );
+
+$('#AcceptSelectionBtn').click(function(){
+  SelectedRecipe = [];
+         console.log ('Listener to select OK');
+         $( "input:checked" ).each(function(i){
+           SelectedRecipe.push(($(this).attr('id')));
+         });
+         console.log(SelectedRecipe)
+       })
+
+</script>
+
+</body>
+</html>
