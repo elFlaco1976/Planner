@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 var currentRecipeIds = [];
 var currentRecipes = {};
-var currentRecipesSelected = [];
+var currentRecipesDisplayed = [];
 
 //url infos - for food2fork
 //const baseUrlSearch = "http://food2fork.com/api/search?key=9ae655dca216187117cd9c66a335a53e";
@@ -27,18 +27,48 @@ getRecipes(userKeyword);
 });
 
 //listener for accept selection field
-console.log("before accept listener");
+var SelectedRecipe = [];
+var countChecked = function() {
+  var n = $( "input:checked" ).length;
+  $( "div" ).text( n + (n === 1 ? " is" : " are") + " checked!" );
+};
+countChecked();
+
+$( "input[type=checkbox]" ).on( "click", countChecked );
+
 $('#AcceptSelectionBtn').click(function(){
-         console.log ('olafsdfdsf');
+   document.getElementById("currentIngredients").innerHTML=" "; //code to erase content
+      SelectedRecipe = [];
+      var RecipeIds = [];
+         console.log ('Listener to select OK'); //debug
+         $( "input:checked" ).each(function(i){
+           SelectedRecipe.push(($(this).attr('id'))); //identify checked buttons
+         });
+         ExtractRecipeId (SelectedRecipe, RecipeIds); //extract recipe id to show ingredients
+         console.log(SelectedRecipe); //debug
+         
+         PopulateIngredFromId(RecipeIds); // populate list
+         
+       })
+    //clicked element, do-some-stuff
 
-    /*$('#currentRecipes').children('li').each(function(i) { 
-     
-     console.log ('ola');
+function ExtractRecipeId (SelectedRecipe, RecipeIds){
+  for (i=0; i<(SelectedRecipe.length); ++i){
+    var RecipeId = SelectedRecipe[i].split("_")[1];
+    RecipeIds.push(RecipeId);
+    console.log(RecipeIds);
+  }
+}
 
-     //$(this).rotate(ring.stones[i].stone_rotation);
-    }); */
-});
-
+var SelectedRecipes = [];
+function PopulateIngredFromId (RecipeIds){
+    for (i=0; i<(RecipeIds.length); ++i){
+         SelectedRecipes.push(currentRecipes[RecipeIds[i]]);   
+}
+    var rawIngredients = getIngredientsFromRecipes(SelectedRecipes);
+    
+    htmlFillRawIngredientsList(rawIngredients);
+}
 
 function appendParameterToUrl(url, parameterName, parameterValue)
 {
@@ -57,43 +87,33 @@ function getRecipes(keyword)
     );
 }
 
+
 function onSearchResponse(data)
 {
     currentRecipes = data.hits;
     console.log("Answer from fetch:" + currentRecipes);
 
     //Kind of user selection. Just select first n recipes for now
-    selectRecipes();
+    populateRecipeList();
 
-    var rawIngredients = getIngredientsFromRecipes(currentRecipesSelected);
+    //todo change place var rawIngredients = getIngredientsFromRecipes(currentRecipesDisplayed);
 
-    htmlFillRawIngredientsList(rawIngredients);
+    //todo change place for this: htmlFillRawIngredientsList(rawIngredients);
 }
-//todo: rename this. rather is displaying all recipes
-function selectRecipes()
+
+function populateRecipeList()
 {
-   var userRecipeSelection = 5;//prompt("Select recipes. First x recipes:");
-    var incRecipeSelection = 0;
     for(var i in currentRecipes)
     {
         var contentRecipeTitle = currentRecipes[i].recipe.label;
         let li = document.createElement("li");
-/*        let liContent = document.createTextNode(contentRecipeTitle);
-        li.appendChild(liContent) 
-        htmlRecipeList.appendChild(li); */
-        incRecipeSelection++;
+
+
         var CheckboxIdIndex = "ChooseRecipe_"+i
-        $('#currentRecipes').append('<li class="list-group-item">'+'<h5>'+contentRecipeTitle+'</h5>'+ '<input type="checkbox" ' + "id="+ '\''+ CheckboxIdIndex+ '\'' +'>'); 
+        $('#currentRecipes').append('<li class="list-group-item">'+'<h5>'+contentRecipeTitle+'</h5>'+ '<input type="checkbox" ' + "id="+ '\''+ CheckboxIdIndex+ '\'' +'>');
 
-        var testId = '<li class="list-group-item" id=RecipeItem>'+'<h5>'+contentRecipeTitle+'</h5>'+ '<input type="checkbox" ' + "id="+ '\''+ CheckboxIdIndex+ '\'' +'>'; 
-       // console.log (testId)
-
-        currentRecipesSelected.push(currentRecipes[i]);
-        if(incRecipeSelection >= userRecipeSelection)
-        {
-            break;
-        }
-    }
+        currentRecipesDisplayed.push(currentRecipes[i]);
+    }        
 
 
 
@@ -104,7 +124,7 @@ function getIngredientsFromRecipes(recipes)
 {
     var ingredients = [];
     for(var i in recipes)
-    {    
+    {
         //Concatenates ingredient list of one recipe to total list of ingredients
         ingredients.push.apply(ingredients, getIngredientsFromRecipe(recipes[i]));
     }
@@ -117,7 +137,7 @@ function getIngredientsFromRecipe(recipe)
     var ingredients = [];
     for(var i in ingredientLines)
     {
-        //Builds ingredient list 
+        //Builds ingredient list
         ingredients.push(ingredientLines[i]);
     }
     return ingredients;
@@ -126,14 +146,17 @@ function getIngredientsFromRecipe(recipe)
 //Fills html ul list
 function htmlFillRawIngredientsList(rawIngredients)
 {
+  //$('#currentIngredients').empty();  
+  //document.getElementById("currentIngredients").innerHTML=" ";
+  
     for(var i in rawIngredients)
     {
         var li = document.createElement("li");
         var liContent = document.createTextNode(rawIngredients[i]);
         li.appendChild(liContent);
-
         htmlIngredientList.appendChild(li);
     }
+    rawIngredients = [];
 }
 
 
