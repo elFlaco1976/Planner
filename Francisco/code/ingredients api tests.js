@@ -55,7 +55,6 @@ $(document).ready(function () {
         }
         //console.log('PopulateIngredFromId SelectedRecipes' + SelectedRecipes); //debug
         var rawIngredients = getIngredientsFromRecipes(SelectedRecipes);
-
         htmlFillRawIngredientsList(rawIngredients);
     }
 
@@ -76,30 +75,18 @@ $(document).ready(function () {
     function onSearchResponse(data) {
         currentRecipes = data.hits;
         //console.log("Answer from fetch:" + currentRecipes); //debug
-
         //Kind of user selection. Just select first n recipes for now
         populateRecipeList();
-
-        //todo change place var rawIngredients = getIngredientsFromRecipes(currentRecipesDisplayed);
-
-        //todo change place for this: htmlFillRawIngredientsList(rawIngredients);
     }
 
     function populateRecipeList() {
         for (var i in currentRecipes) {
             var contentRecipeTitle = currentRecipes[i].recipe.label;
             let li = document.createElement("li");
-
-
             var CheckboxIdIndex = "ChooseRecipe_" + i
             $('#currentRecipes').append('<li class="list-group-item">' + '<h5>' + contentRecipeTitle + '</h5>' + '<input type="checkbox" ' + "id=" + '\'' + CheckboxIdIndex + '\'' + '>');
-
             currentRecipesDisplayed.push(currentRecipes[i]);
         }
-
-
-
-
     }
 
     function getIngredientsFromRecipes(recipes) {
@@ -123,15 +110,13 @@ $(document).ready(function () {
 
     //Fills html ul list
     function htmlFillRawIngredientsList(rawIngredients) {
-        //document.getElementById("currentIngredients").innerHTML=" ";
-        $('#currentIngredients').empty();
+        $('#currentIngredients').empty(); //empties the list to refill it again
         for (var i in rawIngredients) {
             var li = document.createElement("li");
             var liContent = document.createTextNode(rawIngredients[i]);
             li.appendChild(liContent);
             htmlIngredientList.appendChild(li);
         }
-        rawIngredients = [];
     }
 
 
