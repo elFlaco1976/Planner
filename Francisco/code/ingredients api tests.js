@@ -19,6 +19,7 @@ $(document).ready(function () {
 
     //listener for search field
     $('#SearchRecipeBtn').click(function () {
+        $('#listeRecettes').empty();
         var userKeyword = $('#KeywordRecipeField').val();
         //Get recipes with a keyword. Once answer is recieved, executes onSearchResponse
         getRecipes(userKeyword);
@@ -84,7 +85,7 @@ $(document).ready(function () {
             var contentRecipeTitle = currentRecipes[i].recipe.label;
             let li = document.createElement("li");
             var CheckboxIdIndex = "ChooseRecipe_" + i
-            $('#currentRecipes').append('<li class="list-group-item">' + '<h5>' + contentRecipeTitle + '</h5>' + '<input type="checkbox" ' + "id=" + '\'' + CheckboxIdIndex + '\'' + '>');
+            $('#currentRecipes').append('<li class="list-group-item" id="listeRecettes">' + '<h5>' + contentRecipeTitle + '</h5>' + '<input class=checkRec type="checkbox" ' + "id=" + '\'' + CheckboxIdIndex + '\'' + '>');
             currentRecipesDisplayed.push(currentRecipes[i]);
         }
     }

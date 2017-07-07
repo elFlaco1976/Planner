@@ -2,20 +2,35 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-
+    <link rel="stylesheet" type="text/css" href="style/style.css" media="screen" />
     <title>Api tests for ingredients</title>
 </head>
 
 <body>
     <h1>Planning:</h1>
-    <input type="text"  autofocus="autofocus" id='KeywordRecipeField' placeholder="recipe">
-    <a class="btn btn-warning" id="SearchRecipeBtn">Search</a>
-    <p>Current Recipes</p>
-    <ul id="currentRecipes"></ul>
-    <button type="button" class="btn btn-danger" id="AcceptSelectionBtn">Select</button>
+    <div class="row">
+        <div class="col-6" id="listGauche">
+    
+            <input type="text"  autofocus="autofocus" id='KeywordRecipeField' placeholder="recipe">
+            <a class="btn btn-warning" id="SearchRecipeBtn">Search</a>
+            <p>Current Recipes</p>
+            <ul id="currentRecipes"></ul>
+            <button type="button" class="btn btn-danger" id="AcceptSelectionBtn">Select</button>
+        </div>
+    <div class="col-6" id="listDroite">
+        <p>sfksfsdkfjsd</p>
+        
+    </div>
+    </div>
+
+    <div>
+    
     <p>Current Ingredients</p>
     <ul id="currentIngredients"></ul>
+       </div> 
 
+        
+    
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="code/ingredients api tests.js"></script>
 
