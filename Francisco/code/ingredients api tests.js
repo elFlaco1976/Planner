@@ -128,6 +128,7 @@ $(document).ready(function () {
 
         function getIngredientsFromRecipe(recipe) {
             var ingredientLines = recipe.recipe.ingredientLines;
+            //console.log(recipe); //debug
             var ingredients = [];
             for (var i in ingredientLines) {
                 //Builds ingredient list
@@ -173,6 +174,8 @@ $(document).ready(function () {
             $('#SelecteRecipeList').empty(); //empties the list to refill it again
             for (var i in rawTitlesSelectedRecipe) {
                 var li = document.createElement("li");
+                li.className = "list-group-item";
+                li.setAttribute("id", "RecipeItem");
                 var liContent = document.createTextNode(rawTitlesSelectedRecipe[i]);
                 li.appendChild(liContent);
                 htmlRecipeTitlesList.appendChild(li);
