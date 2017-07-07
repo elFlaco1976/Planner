@@ -37,24 +37,24 @@ $(document).ready(function () {
         ExtractRecipeId(SelectedRecipe, RecipeIds); //extract recipe id to show ingred (SelectedRecipe, RecipeIds); 
         //   console.log('SelectedRecipe' + SelectedRecipe); //debug
         //   console.log('RecipeIds' + RecipeIds); //debug
-        PopulateIngredFromId(RecipeIds); // populate list
-        PopulateTitles( TemporarySelectedRecipes )
+        populateIngredFromId(RecipeIds); // populate list
+        populateTitles( temporarySelectedRecipes )
         //UpdateSelectedRecipes(TemporarySelectedRecipes);
        
     })
 
-    function ExtractRecipeId(SelectedRecipe, RecipeIds) {
-        for (i = 0; i < (SelectedRecipe.length); ++i) {
-            var RecipeId = SelectedRecipe[i].split("_")[1];
+    function ExtractRecipeId(selectedRecipe, RecipeIds) {
+        for (i = 0; i < (selectedRecipe.length); i++) {
+            var RecipeId = selectedRecipe[i].split("_")[1];
             RecipeIds.push(RecipeId);
             // console.log('RecipeIds' + RecipeIds); //debug
         }
     }
 
     var FinalSelectedRecipes = [];
-    function UpdateSelectedRecipes(TemporarySelectedRecipes) {
+    function updateSelectedRecipes(temporarySelectedRecipes) {
         FinalSelectedRecipes = [];
-        for (var i in TemporarySelectedRecipes) {
+        for (var i in temporarySelectedRecipes) {
 
             /*for (var i in TemporarySelectedRecipes) {
                 FinalSelectedRecipes.push(TemporarySelectedRecipes[i]);
@@ -66,20 +66,20 @@ $(document).ready(function () {
         }
     }
 
-        var TemporarySelectedRecipes = [];
-        function PopulateIngredFromId(RecipeIds) {
-            TemporarySelectedRecipes = [];
+        var temporarySelectedRecipes = [];
+        function populateIngredFromId(RecipeIds) {
+            temporarySelectedRecipes = [];
             //console.log('PopulateIngredFromId RecipeIds ' + RecipeIds); //debug
-            for (i = 0; i < (RecipeIds.length); ++i) {
-                TemporarySelectedRecipes.push(currentRecipes[RecipeIds[i]]);
+            for (i = 0; i < (RecipeIds.length); i++) {
+                temporarySelectedRecipes.push(currentRecipes[RecipeIds[i]]);
             }
             //console.log('PopulateIngredFromId TemporarySelectedRecipes' + TemporarySelectedRecipes); //debug
-            var rawIngredients = getIngredientsFromRecipes(TemporarySelectedRecipes);
+            var rawIngredients = getIngredientsFromRecipes(temporarySelectedRecipes);
             htmlFillRawIngredientsList(rawIngredients);
 
         }
 
-        function PopulateTitles(recipesTT) {
+        function populateTitles(recipesTT) {
             var rawTitlesSelectedRecipe = getTitlesFromRecipes(recipesTT);
             //console.log(rawTitlesSelectedRecipe); //debug
             htmlFillRawTitlesList(rawTitlesSelectedRecipe);
@@ -110,8 +110,8 @@ $(document).ready(function () {
             for (var i in currentRecipes) {
                 var contentRecipeTitle = currentRecipes[i].recipe.label;
                 let li = document.createElement("li");
-                var CheckboxIdIndex = "ChooseRecipe_" + i
-                $('#currentRecipes').append('<li class="list-group-item" id="listeRecettes">' + '<h5>' + contentRecipeTitle + '</h5>' + '<input class=checkRec type="checkbox" ' + "id=" + '\'' + CheckboxIdIndex + '\'' + '>');
+                var checkboxIdIndex = "ChooseRecipe_" + i
+                $('#currentRecipes').append('<li class="list-group-item" id="listeRecettes">' + '<h5>' + contentRecipeTitle + '</h5>' + '<input class=checkRec type="checkbox" ' + "id=" + '\'' + checkboxIdIndex + '\'' + '>');
                 currentRecipesDisplayed.push(currentRecipes[i]);
             }
         }
