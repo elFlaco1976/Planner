@@ -16,6 +16,7 @@ $(document).ready(function () {
     var userKeyword = "";
     var htmlRecipeList = document.getElementById("currentRecipes");
     var htmlIngredientList = document.getElementById("currentIngredients");
+    var htmlRecipeTitlesList = document.getElementById("SelecteRecipeList");
 
     //listener for search field
     $('#SearchRecipeBtn').click(function () {
@@ -37,7 +38,8 @@ $(document).ready(function () {
         //   console.log('SelectedRecipe' + SelectedRecipe); //debug
         //   console.log('RecipeIds' + RecipeIds); //debug
         PopulateIngredFromId(RecipeIds); // populate list
-        UpdateSelectedRecipes(TemporarySelectedRecipes);
+        PopulateTitles( TemporarySelectedRecipes )
+        //UpdateSelectedRecipes(TemporarySelectedRecipes);
        
     })
 
@@ -57,10 +59,10 @@ $(document).ready(function () {
             /*for (var i in TemporarySelectedRecipes) {
                 FinalSelectedRecipes.push(TemporarySelectedRecipes[i]);
                 
-            }*/
+            }
 
             console.log('TemporarySelectedRecipes = ' + TemporarySelectedRecipes);
-            console.log('FinalSelectedRecipes = ' + FinalSelectedRecipes);
+            console.log('FinalSelectedRecipes = ' + FinalSelectedRecipes);*/
         }
     }
 
@@ -73,9 +75,14 @@ $(document).ready(function () {
             }
             //console.log('PopulateIngredFromId TemporarySelectedRecipes' + TemporarySelectedRecipes); //debug
             var rawIngredients = getIngredientsFromRecipes(TemporarySelectedRecipes);
-            
             htmlFillRawIngredientsList(rawIngredients);
 
+        }
+
+        function PopulateTitles(recipesTT) {
+            var rawTitlesSelectedRecipe = getTitlesFromRecipes(recipesTT);
+            //console.log(rawTitlesSelectedRecipe); //debug
+            htmlFillRawTitlesList(rawTitlesSelectedRecipe);
         }
 
         function appendParameterToUrl(url, parameterName, parameterValue) {
@@ -115,7 +122,7 @@ $(document).ready(function () {
                 //Concatenates ingredient list of one recipe to total list of ingredients
                 ingredients.push.apply(ingredients, getIngredientsFromRecipe(recipes[i]));
             }
-            getTitlesFromRecipes(recipes);
+            
             return ingredients;
         }
 
@@ -126,7 +133,7 @@ $(document).ready(function () {
                 //Builds ingredient list
                 ingredients.push(ingredientLines[i]);
             }
-            getTitleFromRecipe(recipe)
+            
             return ingredients;
         }
 
@@ -134,17 +141,17 @@ $(document).ready(function () {
         function getTitlesFromRecipes(recipes) {
             var Titles = [];
             for (var i in recipes) {
-                //Concatenates ingredient list of one recipe to total list of ingredients
+                //Concatenates ingredient list of one recipe to total list of Titles
                 Titles.push(getTitleFromRecipe(recipes[i]));
             }
-            console.log(Titles);
+           // console.log(Titles);//debug
             return Titles;
         }
 
         function getTitleFromRecipe(recipe) {
-            var title = recipe.recipe.label;
-            //console.log(title); //debug
-            return title;
+            var Recipetitle = recipe.recipe.label;
+            //console.log(Recipetitle); //debug
+            return Recipetitle;
         }
 
 
@@ -160,6 +167,17 @@ $(document).ready(function () {
             }
         }
 
+        //Fills html ul list
+        function htmlFillRawTitlesList(rawTitlesSelectedRecipe) {
+            console.log( 'htmlFillRawTitlesList ' +rawTitlesSelectedRecipe);
+            $('#SelecteRecipeList').empty(); //empties the list to refill it again
+            for (var i in rawTitlesSelectedRecipe) {
+                var li = document.createElement("li");
+                var liContent = document.createTextNode(rawTitlesSelectedRecipe[i]);
+                li.appendChild(liContent);
+                htmlRecipeTitlesList.appendChild(li);
+            }
+        }
 
 
     })
