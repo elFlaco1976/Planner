@@ -44,7 +44,7 @@ $(document).ready(function () {
     })
 
     function ExtractRecipeId(selectedRecipe, RecipeIds) {
-        for (i = 0; i < (selectedRecipe.length); i++) {
+        for (i = 0; i < selectedRecipe.length; i++) {
             var RecipeId = selectedRecipe[i].split("_")[1];
             RecipeIds.push(RecipeId);
             // console.log('RecipeIds' + RecipeIds); //debug
