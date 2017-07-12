@@ -165,6 +165,7 @@ $(document).ready(function () {
             var liContent = document.createTextNode(rawIngredients[i]);
             li.appendChild(liContent);
             htmlIngredientList.appendChild(li);
+            
         }
     }
 
